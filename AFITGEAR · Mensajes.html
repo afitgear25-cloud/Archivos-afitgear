@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AFITGEAR · Mensajes rápidos</title>
+<style>
+:root{--bg:#f6f6f3;--card:#fff;--tx:#1d1d1b;--mu:#6b6b66;--ac:#0f7b5f;--bd:#e2e2dc;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--card:#222221;--tx:#f1f1ee;--mu:#9a9a94;--ac:#3fc29d;--bd:#33332f;color-scheme:dark}}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 system-ui,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:10px 12px;border-bottom:1px solid var(--bd);z-index:5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+h1{font-size:17px;margin:0 0 8px}
+input{width:100%;box-sizing:border-box;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx);font-size:15px}
+nav{display:flex;gap:6px;overflow-x:auto;margin-top:8px;padding-bottom:2px}
+nav button{flex:none;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:6px 12px;border-radius:99px;font-size:13px}
+nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+main{padding:10px 12px 80px;display:grid;gap:8px;max-width:760px;margin:auto}
+.m{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;text-align:left;color:var(--tx);font:inherit;width:100%}
+.m b{display:block;font-size:14px}
+.m span{display:block;color:var(--mu);font-size:12.5px;margin-top:3px;white-space:pre-line;max-height:3.9em;overflow:hidden}
+.m:active{outline:2px solid var(--ac)}
+.m.ok{border-color:var(--ac)}
+#t{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ac);color:#fff;padding:10px 18px;border-radius:99px;opacity:0;transition:.2s;pointer-events:none}
+#t.s{opacity:1}
+</style></head><body>
+<header><h1>AFITGEAR · Tocá y se copia ✅</h1><input id="q" placeholder="Buscar: mancuerna, envío, bienvenida…"><nav id="n"></nav></header>
+<main id="l"></main><div id="t">¡Copiado!</div>
+<script>
+const P={
+"Coordinación y salto":[["Conos tortuga",500,450,375],["Conos rígidos ranurados 38cm",5600,5040,4200],["Escalera de peldaños",12000,10800,9000],["Aros hula 50cm",4000,3600,3000],["Vallas ajustables",7500,7000,6500],["Valla ferher pvc",7500,7000,6500],["Valla de pvc",6000,5600,5200],["Flejes de marcación",800,720,600],["Discos de marcación (goma)",3000,2700,2250],["Bastón de slalom c/pinche 110cm",6000,5600,5200],["Bastón de slalom c/pinche 150cm",7500,7000,6500],["Soga de salto",2600,2340,1950],["Step profesional 75cm",42000,39200,36400],["Step económico",27000,25200,23400],["Módulo de step",18000,16800,15600],["Banda con manijas",12000,11200,10400]],
+"Cajón de fenólico":[["30x40x50",75000,70000,65000],["40x50x60",84000,78000,72000],["50x60x70",98000,91000,84000]],
+"Fitness":[["Rueda abs doble simple",10000,9000,7500],["TRX (banda de suspensión)",16000,14400,12000],["Colchoneta 3cm",14400,13600,12800],["Colchoneta 100x40x4cm",21600,20400,19200],["Mini bosu 23cm",18000,16200,13500],["Chaleco de 10kg",22500,21000,19500],["Chaleco de 20kg",30000,28000,26000]],
+"Medicinal ball lona":[["3kg",27200,25600,24000],["6kg",28900,27200,25500],["9kg",30600,28800,27000],["12kg",32300,30400,28500]],
+"Core bags":[["5kg",27200,25600,24000],["10kg",28900,27200,25500],["15kg",30600,28800,27000],["20kg",32300,30400,28500],["25kg",34000,32000,30000]],
+"Saco búlgaro":[["3kg",25500,24000,22500],["6kg",30600,28800,27000],["9kg",34000,32000,30000],["12kg",35700,33600,31500]],
+"Bandas":[["Banda de tela x3 unidades",12100,11000,9900],["Banda de tela densidad media",6250,5500,5000],["Banda de tela densidad alta",6250,5500,5000]],
+"Bandas de dominadas":[["6,5mm",8100,7650,7200],["12mm",15300,14450,13600],["20mm",23200,21750,20300],["30mm",32000,30000,28000]],
+"Yoga":[["Mat de yoga 183x61cm",30000,28000,26000],["Mat de yoga nacional 6mm",18000,16800,15600],["Ladrillo de yoga",13000,9750,9100],["Rolo 33cm",24000,22400,20800],["Pelota yoga 85cm",33000,30800,28600]],
+"Fútbol":[["Pelota profesional azul N5",30000,28000,26000],["Pelota profesional roja N5",30000,28000,26000],["Cronómetro deportivo",20000,15000,14000],["Botella caramañola Gatorade",15000,14000,13000],["Bolso pelotero",24000,18000,15600]],
+"Tobilleras":[["1kg",10000,7500,7000],["2kg",11000,8250,7700],["3kg",13000,9750,9100]],
+"Discos lisos":[["1kg",6000,5000,4000],["2,5kg",7500,6250,5000],["5kg",9000,7500,6000]],
+"Discos de agarre":[["1kg",5500,4400,3960],["2,5kg",7600,6840,5700],["5kg",10000,9000,7500],["10kg",22500,21000,19500]],
+"Barras con topes":[["Barra hueca 120cm",13500,12600,11700],["Mancuerna con rosca",4000,3200,2400]],
+"Mancuernas":[["1kg",7700,7000,5250],["2kg",9900,9000,6750],["3kg",11000,10000,7500],["4kg",12100,11000,8250],["5kg",13200,12000,9000],["6kg",14300,13000,9750],["7kg",19800,18000,13500],["8kg",24200,22000,16500]],
+"Pesas rusas":[["2kg",4840,4400,3300],["3kg",5500,5000,3750],["4kg",6160,5600,4200],["5kg",7700,7000,5250],["6kg",8800,8000,6000],["8kg",13200,12000,9000],["10kg",14960,13600,10200],["12kg",16720,15200,11400],["14kg",18700,17000,12750],["16kg",22000,20000,15000]],
+"Kits body pump · discos de agarre":[["Kit de 17kg",36000,33600,31200],["Kit de 20kg con mancuernas cortas",42000,39200,36400]],
+"Kits body pump · discos lisos":[["Kit de 10kg",21000,19600,18200],["Kit de 15kg",24000,22400,20800],["Kit de 17kg",34500,32200,29900],["Kit de 20kg",27000,25200,23400],["Kit de 20kg con mancuernas",33000,30800,28600],["Kit de 30kg",33000,30800,28600],["Kit de 30kg con mancuernas cortas",39000,36400,33800]]};
+const NOTA={"Mancuernas":"🎨 Colores: rosa y negro\n💡 Precio por par","Pesas rusas":""};
+const $=n=>"$"+n.toLocaleString("es-AR");
+const FOOT="\n\n📌 Todos los productos son por encargo (preparación: 1 semana).";
+const M=[];const add=(g,t,x)=>M.push({g,t,x});
+// ATENCIÓN
+add("Atención","Bienvenida","¡Hola! 👋 Bienvenido/a a *AFITGEAR*, equipamiento deportivo y de entrenamiento funcional. Contame qué estás buscando y te paso precios y opciones. 💪");
+add("Atención","Bienvenida (consulta general)","¡Hola! 😊 Gracias por escribirnos a *AFITGEAR*. ¿Buscás algo en particular o querés que te envíe la lista completa de precios?");
+add("Atención","Mis datos de contacto","📲 *Datos de contacto AFITGEAR*\n\n💬 WhatsApp: 11 3046-0671\n📸 Instagram: @afit_gear\n📧 Mail: afit.gear25@gmail.com\n\n¡Escribinos cuando quieras! 😊");
+add("Atención","Estoy atento","¡Perfecto! Quedo atento/a a tu respuesta. Cualquier duda, escribime sin problema. 😊");
+add("Atención","Estoy armando tu presupuesto","Dame unos minutos que te armo el presupuesto y te lo paso enseguida. 🧮");
+add("Atención","Seguimos en contacto","¡Gracias por tu consulta! Seguimos en contacto. Cuando quieras avanzar con el pedido, avisame y lo coordinamos. 🙌");
+add("Atención","Seguimiento (no respondió)","¡Hola! 👋 Te escribo para saber si pudiste ver el presupuesto que te pasé. Si querés ajustar cantidades o cambiar algún producto, lo vemos. 😊");
+add("Atención","Despedida","¡Muchas gracias por tu compra y por confiar en *AFITGEAR*! 🙏 Cualquier cosa que necesites, acá estoy. ¡Que lo disfrutes y a entrenar! 💪");
+add("Atención","Despedida post-compra (pedir foto/video)","¡Muchas gracias por tu compra en *AFITGEAR*! 🙏💪 Ya con tus materiales en mano, nos encantaría ver cómo los usás.\n\n📸 ¿Nos compartís una *foto, historia o video* del producto o de tu entrenamiento?\n\nPodés etiquetarnos en tus redes (*@afit_gear*) y lo compartimos, o mandármelo por acá y lo subimos nosotros (siempre con tu permiso). 😊\n\n¡Gracias por confiar en nosotros!");
+add("Atención","Revivir pedido (dejó de responder)","¡Hola [nombre]! 👋 Te escribo para saber si querés *continuar con tu pedido*. 😊\n\n📄 ¿Pudiste ver el catálogo? Si te quedó alguna consulta o duda sobre productos, precios o envíos, contame y la resuelvo enseguida.\n\nSi querés ajustar cantidades o cambiar algo del presupuesto, también lo vemos. ¡Quedo atento/a! 🙌");
+add("Atención","Despedida (sin compra)","¡Gracias por consultar! Cuando quieras retomar, escribime y lo vemos. ¡Que tengas un excelente día! 😊");
+// PRECIOS
+add("Precios","Cómo son las listas de precios","Manejamos *3 listas de precios* según la cantidad, y cuanto más llevás, menos pagás por unidad: 👇\n\n1️⃣ *Unitario* (1 unidad)\n2️⃣ *2 a 9 unidades*: precio más bajo\n3️⃣ *10 unidades o más*: el mejor precio\n\n¿Qué producto y qué cantidad necesitás? Así te paso el precio exacto. 😊");
+add("Precios","Precio por cantidad (ejemplo)","Te cuento cómo funciona: el precio baja por cantidad. Por ejemplo, un producto de $10.000 unitario puede quedar más económico si llevás 2 a 9 unidades, y todavía más si llevás 10 o más. 📉 Decime qué te interesa y te calculo el total.");
+add("Precios","Descuento por cantidad (empujar)","💡 Estás llevando [X] unidades. Si llegás a *10 unidades* (o más) te baja al precio de la tercera lista. Te conviene sumar [Y] más. ¿Te armo el presupuesto con esa cantidad?");
+add("Precios","Formas de pago","💳 Aceptamos *efectivo* y *transferencia bancaria*. Cuando me confirmes el pedido te paso los datos.");
+add("Precios","Pedido por encargo","📦 Todos nuestros productos son *por encargo*. La preparación demora *1 semana*, tiempo en el que coordinamos y armamos tu pedido. Con ese plazo te aseguramos que llegue todo bien armado.");
+add("Precios","Presupuesto (plantilla)","📋 *Presupuesto AFITGEAR*\n\n• [Producto] x [cant] = $[total]\n• [Producto] x [cant] = $[total]\n\n💰 Subtotal: $[total]\n🚚 Envío: $[costo] (si corresponde)\n✅ *Total: $[total]*\n\n📌 Pedido por encargo (1 semana). Pago en efectivo o transferencia.");
+// ENTREGAS
+add("Entregas","Cómo entrego (resumen)","🚚 *Formas de entrega:*\n\n📍 *Retiro en Monte Grande:* en la estación de tren o en la plaza, coordinando día y horario. Sin costo.\n🚗 *Envío en auto:* a domicilio, más rápido (costo según ubicación).\n📮 *Envío por correo:* a domicilio, más económico (costo según ubicación).\n\n¿De qué zona sos? Así te digo la mejor opción. 😊");
+add("Entregas","Entrega en estación Monte Grande","📍 Hacemos entregas en la *estación de tren de Monte Grande*. Coordinamos día y horario que te quede cómodo. Sin costo de envío. 🚆");
+add("Entregas","Entrega en plaza Monte Grande","📍 Podemos encontrarnos en la *plaza de Monte Grande*. Coordinamos día y horario según te quede mejor. Sin costo de envío. 🌳");
+add("Entregas","Envío en auto vs. correo","Tenés dos opciones de envío a domicilio:\n\n🚗 *Auto:* más rápido y directo, pero un poco más caro.\n📮 *Correo:* más económico, con un poco más de demora.\n\nEl costo varía según tu ubicación. ¿Cuál preferís? 😊");
+add("Entregas","Datos para envío por correo","📮 Para armar tu *envío por correo* necesito estos datos:\n\n👤 Nombre y apellido\n🪪 DNI\n📱 Teléfono de contacto\n📍 Localidad\n🏠 Dirección (calle y número)\n↔️ Entre calles\n📮 Código postal\n🏢 Piso / depto (si corresponde)\n📝 Referencias o aclaraciones (opcional)\n\nCon eso te confirmo el costo y los tiempos del envío. 🚚");
+add("Entregas","Costo de envío (plantilla)","🚚 Envío a [localidad]:\n\n🚗 Auto: $[costo]\n📮 Correo: $[costo]\n\n¿Cuál preferís? Los tiempos de entrega se cuentan desde que el pedido está listo (1 semana de preparación).");
+add("Entregas","Pedido listo, coordinar","¡Tu pedido ya está listo! 🎉 Coordinemos la entrega: ¿te queda mejor retirarlo en la estación o plaza de Monte Grande, o preferís envío a domicilio? 🚚");
+add("Entregas","Pedido despachado","📦 ¡Tu pedido ya fue despachado! 🚚 Te paso el número de seguimiento: [código]. Cualquier cosa, avisame. 🙌");
+// CATÁLOGO
+for(const[c,it]of Object.entries(P)){
+ const body=it.map(([n,u,m,d])=>`• ${n}: ${$(u)} | 2-9 un.: ${$(m)} | 10+: ${$(d)}`).join("\n");
+ const nt=NOTA[c]?NOTA[c]+"\n":"";
+ add("Catálogo","Lista: "+c,`🏋️ *${c.toUpperCase()}* (AFITGEAR)\n${nt}\n💰 Precios: Unitario | 2 a 9 un. | 10 o más\n${body}${FOOT}`);
+}
+add("Catálogo","Mancuernas (respuesta rápida)","¡Sí, tengo mancuernas! 💪 Desde *1 kg hasta 8 kg*, en colores *rosa y negro*.\n💡 El precio es *por el par*.\n\n"+P["Mancuernas"].map(([n,u])=>`• ${n}: ${$(u)}`).join("\n")+"\n\n📉 Con 2 a 9 y 10 o más baja el precio. ¿Qué pesos y cuántas necesitás?"+FOOT);
+add("Catálogo","Lista completa (aviso)","Te paso la *lista de precios completa* de AFITGEAR 📄 con los 3 valores: unitario, 2 a 9 unidades y 10 o más. Cualquier producto que te interese, decime y te armo el presupuesto. 😊");
+// OFERTAS
+add("Ampliar pedido","Sumar discos + barra","💡 Si llevás discos, te conviene sumar una *barra hueca 120cm* ($13.500 unitario) para armar tu set completo. ¿Te lo agrego?");
+add("Ampliar pedido","Mancuernas + pesas rusas","Combinando *mancuernas y pesas rusas* armás un entrenamiento completo, y sumando unidades llegás antes a la lista de *10 o más*, que es la más económica. 📉 ¿Te armo una propuesta?");
+add("Ampliar pedido","Kit body pump","🏋️ Para clases grupales te recomiendo los *Kits Body Pump* (10, 15, 17, 20 y 30 kg). Vienen armados y salen mejor que comprar todo por separado. ¿Para cuántos alumnos sería?");
+add("Ampliar pedido","Pack funcional (escuelas/profes)","Para clases funcionales o escuelas deportivas, te armo un pack: 🟠 *Conos*, 🔵 *aros hula*, 🪜 *escalera de peldaños*, 🚧 *vallas* y *soga de salto*. Llevando 10 o más de cada uno, el precio baja. ¿Cuántos alumnos tenés por clase?");
+add("Ampliar pedido","Pack yoga / movilidad","🧘 Para yoga o movilidad: *mat*, *ladrillo*, *rolo* y *pelota de yoga 85cm*. Llevando el set completo te queda ideal. ¿Te armo un presupuesto?");
+add("Ampliar pedido","Pack fuerza + bandas","Para sumar variedad: *bandas de tela*, *bandas de dominadas* o *TRX* son livianas y económicas, ideales para completar el pedido. 🏋️ ¿Querés que las sume?");
+add("Ampliar pedido","Pack fútbol / entrenador","⚽ Para entrenadores: *pelotas N5*, *cronómetro*, *bolso pelotero* y *conos*. Con 10 o más, el precio es el mejor. ¿Te armo el presupuesto?");
+add("Ampliar pedido","Precio por 10 o más","📉 Estás cerca de la lista de *10 o más unidades*, la más económica. Sumando [Y] más pasás al mejor precio y ahorrás en total. ¿Querés que lo calcule?");
+// SIN STOCK
+add("Sin stock","Sin stock (genérico)","Ese producto lo tengo por encargo y hoy no lo tengo disponible 😕 pero te puedo ofrecer una alternativa similar. ¿Te cuento las opciones?");
+add("Sin stock","Reemplazo: discos lisos ↔ agarre","Ese tipo de disco no lo tengo disponible, pero tengo los *discos de agarre* (o *lisos*, según el caso) en pesos equivalentes: 1, 2,5 y 5kg. Cumplen la misma función. ¿Te paso los precios?");
+add("Sin stock","Reemplazo: mancuernas ↔ pesas rusas","Si no tengo ese peso de mancuerna, una buena alternativa son las *pesas rusas* (kettlebells), con pesos desde 2 kg hasta 16 kg. ¿Te las cotizo?");
+add("Sin stock","Reemplazo: step económico ↔ profesional","Si el step que querés no está disponible, tengo el *Step Económico* o el *Step Profesional 75cm*, y el *módulo de step* para ajustar la altura. ¿Cuál preferís?");
+add("Sin stock","Reemplazo: yoga ↔ colchoneta","Si no tengo ese mat, tengo otras opciones: *Mat de yoga 183x61cm*, *Mat nacional 6mm* o *colchonetas* (3cm y 4cm). ¿Para qué actividad lo necesitás?");
+add("Sin stock","Reemplazo: medicinal ↔ core bag / saco búlgaro","Si no tengo esa medicinal ball, tengo *core bags* (5 a 25kg) y *sacos búlgaros* (3 a 12kg), que sirven para trabajos de fuerza y funcional. ¿Te paso precios?");
+add("Sin stock","Reemplazo: valla ↔ valla","De las vallas, tengo *ajustables*, *ferher pvc* y *pvc*. Si una no está, te ofrezco otra equivalente. ¿Para qué uso las necesitás?");
+// CIERRE
+add("Cierre","Confirmar pedido","¡Genial! Para cerrar el pedido confirmame:\n\n✅ Productos y cantidades\n📍 Retiro (estación o plaza de Monte Grande) o envío (auto/correo)\n💳 Efectivo o transferencia\n\nTe paso el total final. 😊");
+add("Cierre","Datos de transferencia","💳 Te paso los datos para la transferencia:\n\nTitular: Facundo Bolle Nahuel\nAlias: afit.gear\nCVU: 00000031000504485187067\nMonto: $[total]\n\nCuando transferís, mandame el comprobante y arranco con tu pedido. 🙌");
+add("Cierre","Comprobante recibido","¡Recibí tu pago, gracias! ✅ Arranco con la preparación de tu pedido (demora 1 semana). Te aviso apenas esté listo para coordinar la entrega. 📦");
+add("Cierre","Pedir reseña / recomendación","¡Gracias por tu compra! 🙏 Si estuviste conforme, me ayudás un montón recomendándome con amigos o colegas. ¡Tené en cuenta que con más unidades baja el precio! 😉");
+const G=["Todos",...new Set(M.map(m=>m.g))];let g="Todos";
+const n=document.getElementById("n"),l=document.getElementById("l"),q=document.getElementById("q"),t=document.getElementById("t");
+function cp(x,b){const f=()=>{t.classList.add("s");b.classList.add("ok");setTimeout(()=>{t.classList.remove("s");b.classList.remove("ok")},1200)};
+ if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(x).then(f,()=>fb(x,f));else fb(x,f)}
+function fb(x,f){const a=document.createElement("textarea");a.value=x;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(e){}a.remove();f()}
+function R(){const s=q.value.toLowerCase();l.innerHTML="";
+ M.filter(m=>(g=="Todos"||m.g==g)&&(!s||(m.t+m.x).toLowerCase().includes(s))).forEach(m=>{const b=document.createElement("button");b.className="m";b.innerHTML="<b></b><span></span>";b.firstChild.textContent=m.t;b.lastChild.textContent=m.x;b.onclick=()=>cp(m.x,b);l.appendChild(b)})}
+G.forEach(x=>{const b=document.createElement("button");b.textContent=x;b.className=x==g?"on":"";b.onclick=()=>{g=x;[...n.children].forEach(c=>c.className=c.textContent==g?"on":"");R()};n.appendChild(b)});
+q.oninput=R;R();
+</script></body></html>
